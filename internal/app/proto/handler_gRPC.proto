@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "gophkeeper/internal/app/proto";
+
+message RegisterRequest {
+    string login = 1;
+    string password = 2;
+}
+
+message RegisterResponse {
+    int64 status = 1;
+    string cookie = 2;
+}
+
+message AuthenticationRequest{
+    string login = 1;
+    string password = 2;
+    string cookie = 3;
+}
+
+message AuthenticationResponse{
+    int64 status = 1;
+    string cookie = 2;
+}
+
+message EditMasterPassRequest{
+    string cookie = 1;
+    string newpass = 2;
+}
+
+message EditMasterPassResponse{
+    int64 status = 1;
+}
+
+message AddDataRequest{
+    string cookie = 1;
+    bytes data = 2;
+}
+
+message AddDataResponse{
+    int64 status = 1;
+    int64 id = 2;
+}
+
+message UpdateDataRequest{
+    string cookie = 1;
+    bytes data = 2;
+    int64 id =3;
+}
+
+message UpdateDataResponse{
+    int64 status = 1;
+}
+
+message GetDataRequest{
+    string cookie = 1;
+    int64 id =2;
+}
+
+message GetDataResponse{
+    int64 status = 1;
+    bytes data = 2;
+}
+
+message DeleteRequest{
+    string cookie = 1;
+    int64 id =2;
+}
+
+message DeleteResponse{
+    int64 status = 1;
+}
+
+service MyService {
+    rpc Register(RegisterRequest) returns (RegisterResponse);
+    rpc Authentication(AuthenticationRequest) returns (AuthenticationResponse);
+    rpc EditMasterPass(EditMasterPassRequest) returns (EditMasterPassResponse);
+    rpc AddData(AddDataRequest) returns (AddDataResponse);
+    rpc UpdateData(UpdateDataRequest) returns (UpdateDataResponse);
+    rpc GetData(GetDataRequest) returns (GetDataResponse);
+    rpc Delete(DeleteRequest) returns (DeleteResponse);
+}
